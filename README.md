@@ -79,7 +79,7 @@ GROUP BY product_id_upper
 """)
 
 result.write.mode("overwrite").option("header", "true").csv(output_path + "analysis/")
-
+---
 ### Step 6: Created AWS Lambda Function
 import json
 import boto3
@@ -92,17 +92,20 @@ def lambda_handler(event, context):
         'statusCode': 200,
         'body': json.dumps('Glue job started successfully')
     }
-
+---
 ### Step 7: Configured Permissions
 	•	Added inline policy to Lambda role:
 	•	glue:StartJobRun
+---
 ### Step 8: Configured S3 Trigger
 	•	Event: Object Created (PUT)
 	•	Bucket: vaishnav-handson12
+---
 ### Step 9: Executed Pipeline
 	•	Uploaded file to S3
 	•	Lambda triggered Glue job automatically
 	•	Glue processed data and stored results in S3
+---
 ### SQL Query Used
 SELECT product_id_upper, AVG(rating) AS avg_rating, COUNT(*) AS total_reviews
 FROM reviews
